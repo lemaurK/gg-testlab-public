@@ -1,0 +1,93 @@
+{
+	"meta": {
+		"generatedAt": "2025-09-03T21:01:08.178Z",
+		"tasksAnalyzed": 10,
+		"totalTasks": 10,
+		"analysisCount": 10,
+		"thresholdScore": 5,
+		"projectName": "General Galactic TestLab",
+		"usedResearch": true
+	},
+	"complexityAnalysis": [
+		{
+			"taskId": 1,
+			"taskTitle": "Initialize Project Repositories and Tooling",
+			"complexityScore": 6,
+			"recommendedSubtasks": 7,
+			"expansionPrompt": "Break down the initialization into: (1) Create and configure public GitHub repo, (2) Create and configure local GitHub repo, (3) Scaffold Next.js 14+ app with TypeScript in both repos, (4) Add MIT license, README, and .gitignore to both, (5) Configure Vercel deployment for public repo, (6) Set up local repo for offline use, (7) Integrate Husky, Prettier, and ESLint for both repos.",
+			"reasoning": "This task involves multiple repositories, environment-specific configurations, and integration of several developer tools. Each step is standard but requires careful coordination to ensure modularity and reusability, increasing cognitive and organizational complexity."
+		},
+		{
+			"taskId": 2,
+			"taskTitle": "Implement File Upload and Schema Inference",
+			"complexityScore": 7,
+			"recommendedSubtasks": 8,
+			"expansionPrompt": "Expand into: (1) Design file input UI with SHADCN, (2) Integrate PapaParse for CSV/TSV, (3) Implement JSON parsing and Zod validation, (4) Develop header/type inference logic, (5) Normalize timestamps to ISO 8601, (6) Render preview table, (7) Implement defensive error handling, (8) Write tests for all file types and edge cases.",
+			"reasoning": "Supporting multiple file formats, schema inference, and robust error handling introduces significant branching logic and validation complexity. UI preview and normalization add further steps, each requiring careful modularization and testing."
+		},
+		{
+			"taskId": 3,
+			"taskTitle": "Develop Core Metric Extraction Engine",
+			"complexityScore": 8,
+			"recommendedSubtasks": 7,
+			"expansionPrompt": "Decompose into: (1) Define metric extraction requirements, (2) Implement rise time calculation, (3) Implement peak thrust calculation, (4) Implement burn duration calculation, (5) Implement area under curve calculation, (6) Handle edge cases (missing data, non-uniform sampling), (7) Prepare extracted features for ML/visualization.",
+			"reasoning": "This task requires implementing mathematically precise, reusable, and pure functions for time-series analysis, handling edge cases, and ensuring extensibility for ML. The need for accuracy and robustness increases both cognitive and algorithmic complexity."
+		},
+		{
+			"taskId": 4,
+			"taskTitle": "Build Interactive Data Visualization Components",
+			"complexityScore": 7,
+			"recommendedSubtasks": 7,
+			"expansionPrompt": "Divide into: (1) Integrate Chart.js or Recharts with Next.js, (2) Design responsive chart layouts with SHADCN UI, (3) Implement time-aligned plots, (4) Add overlays for multiple runs, (5) Enable sensor selection, (6) Optimize rendering for large datasets, (7) Test responsiveness and performance.",
+			"reasoning": "Interactive, performant data visualization with overlays and dynamic selection requires careful state management, efficient rendering, and responsive design, each adding to the overall complexity."
+		},
+		{
+			"taskId": 5,
+			"taskTitle": "Implement Drift Visualizer for Run Comparison",
+			"complexityScore": 7,
+			"recommendedSubtasks": 6,
+			"expansionPrompt": "Expand into: (1) Develop run alignment logic, (2) Implement metric difference highlighting, (3) Overlay plots with color coding, (4) Add memoization for performance, (5) Build UI for run selection, (6) Test with varied run data.",
+			"reasoning": "Aligning and comparing time-series data, visualizing metric drift, and ensuring performance with memoization introduces non-trivial algorithmic and UI complexity, especially for edge cases and large datasets."
+		},
+		{
+			"taskId": 6,
+			"taskTitle": "Integrate Optional AI Burn Classifier",
+			"complexityScore": 8,
+			"recommendedSubtasks": 7,
+			"expansionPrompt": "Break down into: (1) Integrate ONNX.js for browser inference, (2) Set up FastAPI backend for local inference, (3) Implement model loading and fallback logic, (4) Build UI toggle for AI, (5) Connect feature extraction to classifier, (6) Defensive error handling for model unavailability, (7) Test both inference paths.",
+			"reasoning": "Integrating ML inference in both browser and backend, handling model loading, toggling, and robust error handling across environments is complex and requires careful separation of concerns and testing."
+		},
+		{
+			"taskId": 7,
+			"taskTitle": "Develop PDF Report Exporter",
+			"complexityScore": 6,
+			"recommendedSubtasks": 6,
+			"expansionPrompt": "Expand into: (1) Integrate pdf-lib or jsPDF, (2) Implement chart/metric selection UI, (3) Render visuals and metrics to PDF, (4) Add file metadata and summary, (5) Ensure offline export functionality, (6) Test PDF output and formatting.",
+			"reasoning": "Client-side PDF generation with dynamic content selection and offline support is moderately complex, requiring integration of third-party libraries and careful UI/UX considerations."
+		},
+		{
+			"taskId": 8,
+			"taskTitle": "Implement Dual Deployment Modes (Public & Local)",
+			"complexityScore": 9,
+			"recommendedSubtasks": 8,
+			"expansionPrompt": "Decompose into: (1) Configure Next.js build scripts for both modes, (2) Implement client-side only processing for public mode, (3) Add upload disclaimer for public mode, (4) Disable external calls in local mode, (5) Ensure offline capability in local mode, (6) Hardcode model paths for local, (7) Implement mode switch logic and environment detection, (8) Test all mode-specific behaviors.",
+			"reasoning": "Supporting two distinct deployment modes with strict privacy, offline guarantees, and environment-specific logic is highly complex, requiring careful build configuration, conditional logic, and thorough testing."
+		},
+		{
+			"taskId": 9,
+			"taskTitle": "Polish UI/UX and Accessibility",
+			"complexityScore": 6,
+			"recommendedSubtasks": 7,
+			"expansionPrompt": "Expand into: (1) Apply SHADCN UI patterns, (2) Implement Tailwind CSS theming and layout, (3) Add theme toggle (light/dark), (4) Build onboarding modal, (5) Ensure keyboard navigation and ARIA labels, (6) Optimize bundle size and load time, (7) Run accessibility and performance audits.",
+			"reasoning": "UI/UX polish and accessibility require attention to detail across all components, with multiple best practices and audits to ensure compliance and performance, but each step is well-defined and modular."
+		},
+		{
+			"taskId": 10,
+			"taskTitle": "Finalize Documentation and Release Workflow",
+			"complexityScore": 5,
+			"recommendedSubtasks": 6,
+			"expansionPrompt": "Break down into: (1) Write comprehensive README for both repos, (2) Document API and deployment, (3) Add MIT license, (4) Set up GitHub Actions for CI, (5) Define release workflow and commit conventions, (6) Test documentation and CI in clean environments.",
+			"reasoning": "While documentation and release workflow are critical, the steps are standard and procedural, with moderate complexity mainly in ensuring completeness and automation."
+		}
+	]
+}
