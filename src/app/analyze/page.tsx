@@ -327,39 +327,27 @@ export default function ThrustBenchAnalyze() {
 
                 {fileAnalyses.map((analysis, index) => (
                   <div key={index} className="space-y-6">
-                    <DataPreview 
-                      data={analysis.parsedData}
-                      fileName={analysis.parsedData.originalFile.name}
-                    />
-                    
+                    <DataPreview data={analysis.parsedData} />
+
                     {analysis.metrics && (
-                      <MetricsDisplay metrics={analysis.metrics} />
+                      <>
+                        <MetricsDisplay 
+                          metrics={analysis.metrics} 
+                          fileName={analysis.parsedData.originalFile.name}
+                        />
+                        <AIClassification 
+                          metrics={analysis.metrics}
+                          fileName={analysis.parsedData.originalFile.name}
+                        />
+                      </>
                     )}
-                    
-                    <DataVisualization 
-                      data={analysis.parsedData}
-                      fileName={analysis.parsedData.originalFile.name}
-                    />
-                    
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                      <DriftVisualizer 
-                        data={analysis.parsedData}
-                        fileName={analysis.parsedData.originalFile.name}
-                      />
-                      
-                      <AIClassification 
-                        data={analysis.parsedData}
-                        fileName={analysis.parsedData.originalFile.name}
-                      />
-                    </div>
-                    
-                    <PDFExport 
-                      data={analysis.parsedData}
-                      metrics={analysis.metrics}
-                      fileName={analysis.parsedData.originalFile.name}
-                    />
                   </div>
                 ))}
+
+                {/* Multi-file visualizations */}
+                <DataVisualization fileAnalyses={fileAnalyses} />
+                <DriftVisualizer fileAnalyses={fileAnalyses} />
+                <PDFExport fileAnalyses={fileAnalyses} />
               </div>
             )}
 

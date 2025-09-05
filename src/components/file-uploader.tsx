@@ -38,7 +38,7 @@ export function FileUploader({
     }
     
     return true
-  }, [acceptedFormats])
+  }, [acceptedFormats, maxSize])
 
   const handleFileSelection = useCallback((newFiles: File[]) => {
     setErrors([])
