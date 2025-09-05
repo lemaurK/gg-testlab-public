@@ -207,7 +207,6 @@ export default function ThrustBenchAnalyze() {
                     <FileUploader 
                       onFilesSelected={handleFilesSelected}
                       maxFiles={10}
-                      maxSize={50 * 1024 * 1024} // 50MB
                     />
 
                     {selectedFiles.length > 0 && (
