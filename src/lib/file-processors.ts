@@ -1,4 +1,4 @@
-import Papa from 'papaparse'
+import * as Papa from 'papaparse'
 import { z } from 'zod'
 
 export interface ParsedData {
@@ -245,15 +245,14 @@ export async function processCsvTsv(file: File): Promise<ProcessingResult> {
       const isTabDelimited = file.name.toLowerCase().endsWith('.tsv')
       const detectedDelimiter = isTabDelimited ? '\t' : detectDelimiter(preprocessedContent)
       
-      Papa.parse(preprocessedContent, {
+      Papa.parse<Record<string, unknown>>(preprocessedContent, {
         header: true,
         delimiter: detectedDelimiter,
         skipEmptyLines: 'greedy',
-        quotes: true,
         quoteChar: '"',
         escapeChar: '"',
         transformHeader: (header) => header.trim(),
-      complete: (results) => {
+      complete: (results: Papa.ParseResult<Record<string, unknown>>) => {
         if (results.errors.length > 0) {
           resolve({
             success: false,
@@ -263,7 +262,7 @@ export async function processCsvTsv(file: File): Promise<ProcessingResult> {
         }
 
         const headers = Object.keys(results.data[0] || {})
-        const rows = results.data as Record<string, any>[]
+        const rows = results.data as Record<string, unknown>[]
         const warnings: string[] = [...preprocessWarnings]
 
         // Clean and normalize data
