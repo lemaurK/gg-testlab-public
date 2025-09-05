@@ -8,14 +8,16 @@ import { Upload, X, FileText, AlertCircle } from 'lucide-react'
 
 interface FileUploaderProps {
   onFilesSelected: (files: File[]) => void
-  acceptedFormats: string[]
+  acceptedFormats?: string[]
   maxFiles?: number
+  maxSize?: number
 }
 
 export function FileUploader({ 
   onFilesSelected, 
   acceptedFormats = ['.csv', '.tsv', '.json'],
-  maxFiles = 10 
+  maxFiles = 10,
+  maxSize = 50 * 1024 * 1024 // 50MB
 }: FileUploaderProps) {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([])
   const [isDragOver, setIsDragOver] = useState(false)
@@ -28,10 +30,10 @@ export function FileUploader({
       return false
     }
     
-    // 50MB limit
-    const maxSize = 50 * 1024 * 1024
+    // File size limit
     if (file.size > maxSize) {
-      setErrors(prev => [...prev, `${file.name}: File too large. Maximum size is 50MB.`])
+      const maxSizeMB = Math.round(maxSize / 1024 / 1024)
+      setErrors(prev => [...prev, `${file.name}: File too large. Maximum size is ${maxSizeMB}MB.`])
       return false
     }
     
@@ -112,7 +114,7 @@ export function FileUploader({
             Drag and drop files here, or click to browse
           </p>
           <p className="text-xs text-gray-500">
-            Supported formats: {acceptedFormats.join(', ')} (Max {maxFiles} files, 50MB each)
+            Supported formats: {acceptedFormats.join(', ')} (Max {maxFiles} files, {Math.round(maxSize / 1024 / 1024)}MB each)
           </p>
           <p className="text-xs text-blue-600 mt-1">
             💡 <strong>Recommended:</strong> &lt;10,000 rows, &lt;5MB file size for optimal performance
