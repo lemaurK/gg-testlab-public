@@ -326,7 +326,7 @@ export async function processCsvTsv(file: File): Promise<ProcessingResult> {
           }
         })
       },
-      error: (error) => {
+      error: (error: Error | Papa.ParseError, _file?: Papa.LocalFile | string) => {
         resolve({
           success: false,
           error: `Failed to parse CSV/TSV: ${error.message}. Try checking for mixed delimiters, quoted strings, or malformed rows.`

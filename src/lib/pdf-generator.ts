@@ -565,7 +565,10 @@ export class PDFReportGenerator {
 
 // Utility function to download PDF
 export function downloadPDF(pdfBytes: Uint8Array, fileName: string): void {
-  const blob = new Blob([pdfBytes], { type: 'application/pdf' })
+  // Ensure an ArrayBuffer instance (not SharedArrayBuffer) for Blob
+  const buffer = new ArrayBuffer(pdfBytes.byteLength)
+  new Uint8Array(buffer).set(pdfBytes)
+  const blob = new Blob([buffer], { type: 'application/pdf' })
   const url = URL.createObjectURL(blob)
   const link = document.createElement('a')
   
