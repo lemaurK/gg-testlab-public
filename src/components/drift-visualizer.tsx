@@ -89,7 +89,7 @@ export function DriftVisualizer({ fileAnalyses }: DriftVisualizerProps) {
       
       if (timeCol) {
         analysis.parsedData.rows.forEach(row => {
-          const timeValue = parseFloat(row[timeCol]) || 0
+          const timeValue = parseFloat(String(row[timeCol])) || 0
           commonTimePoints.add(timeValue)
         })
       }
@@ -132,14 +132,15 @@ export function DriftVisualizer({ fileAnalyses }: DriftVisualizerProps) {
         if (timeCol && thrustCol) {
           // Find closest data point for this adjusted time
           const closestRow = analysis.parsedData.rows.reduce((closest, row) => {
-            const rowTime = parseFloat(row[timeCol]) || 0
-            const closestTime = parseFloat(closest[timeCol]) || 0
+            const rowTime = parseFloat(String(row[timeCol])) || 0
+            const closestTime = parseFloat(String(closest[timeCol])) || 0
             
             return Math.abs(rowTime - adjustedTime) < Math.abs(closestTime - adjustedTime) ? row : closest
           })
           
           const runKey = `Run ${runIndex + 1}: ${analysis.parsedData.originalFile.name.split('.')[0]}`
-          dataPoint[runKey] = parseFloat(closestRow[thrustCol]) || null
+          const thrustVal = parseFloat(String(closestRow[thrustCol]))
+          dataPoint[runKey] = isNaN(thrustVal) ? null : thrustVal
         }
       })
       
