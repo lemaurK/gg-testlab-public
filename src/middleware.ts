@@ -1,5 +1,3 @@
-'use server'
-
 import { NextResponse, type NextRequest } from 'next/server'
 
 // Canonical host for production
@@ -7,11 +5,13 @@ const CANONICAL_HOST = 'www.thrustbench.app'
 
 export function middleware(request: NextRequest) {
   const url = request.nextUrl.clone()
-  const host = request.headers.get('host') || ''
+  const headerHost = request.headers.get('host') || ''
+  const forwardedHost = request.headers.get('x-forwarded-host') || ''
+  const host = forwardedHost || headerHost
 
   // Enforce canonical host in production: redirect apex and any vercel.app host
   const isApex = host === 'thrustbench.app'
-  const isVercelHost = host.endsWith('.vercel.app') || host.endsWith('.vercel.sh')
+  const isVercelHost = /\.vercel\.(app|sh)$/.test(host)
 
   if (isApex || isVercelHost) {
     url.host = CANONICAL_HOST
@@ -23,9 +23,6 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    // Apply to all paths
-    '/:path*',
-  ],
+  // Exclude Next assets and files with extensions
+  matcher: ['/((?!_next/|.*\..*).*)', '/'],
 }
-
